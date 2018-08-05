@@ -22,18 +22,26 @@ namespace AsposePivotDemo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Workbook workbook = new Workbook("C:/Users/Ankita/Documents/bc.xlsx");
+            Workbook workbook = new Workbook("C:/Users/Ankita/Documents/bc69.xlsx");
+            workbook.Worksheets.RemoveAt("Pivot");
             Worksheet worksheet = workbook.Worksheets.Add("Pivot");
-            
-            int iPivotIndex = worksheet.PivotTables.Add("Data!A2:C39","B3","PivotTable");
+
+
+            int iPivotIndex = worksheet.PivotTables.Add("Data!A1:C39","A1","PivotTable");
             PivotTable pt = worksheet.PivotTables[iPivotIndex];
             pt.RowGrand = true;
             pt.ColumnGrand = true;
             pt.IsAutoFormat = true;
-            pt.AddFieldToArea(PivotFieldType.Column,0);
-            pt.AddFieldToArea(PivotFieldType.Data, 1);
+            pt.AddFieldToArea(PivotFieldType.Row, 0);
+            pt.AddFieldToArea(PivotFieldType.Row, 1);
             pt.AddFieldToArea(PivotFieldType.Data, 2);
-            workbook.Save("C:/Users/Ankita/Documents/bc.xlsx"); 
+
+
+
+           workbook.Save("C:/Users/Ankita/Documents/bc69.xlsx");
+
+
+
 
         }
     }
