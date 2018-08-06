@@ -27,7 +27,29 @@ namespace AsposePivotDemo
             Worksheet worksheet = workbook.Worksheets.Add("Pivot");
 
 
-            int iPivotIndex = worksheet.PivotTables.Add("Data!A1:C39","A1","PivotTable");
+            Worksheet sheet0 = workbook.Worksheets[0];
+            //Cells cells = sheet0.Cells;
+
+            Cell cell = sheet0.Cells.LastCell;
+
+            int col=cell.Column + 1;
+            int row=cell.Row + 1;
+
+         
+            int dividend = col;
+            string columnName = String.Empty;
+
+            while (dividend > 0)
+            {
+                var modulo = (dividend - 1) % 26;
+                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
+                dividend = (dividend - modulo) / 26;
+            }
+            string sheetname = sheet0.Name;
+            string datasource = sheetname+"!A1:"+ columnName + row.ToString();
+            
+
+        int iPivotIndex = worksheet.PivotTables.Add(datasource,"A1","PivotTable");
             PivotTable pt = worksheet.PivotTables[iPivotIndex];
             pt.RowGrand = true;
             pt.ColumnGrand = true;
@@ -36,9 +58,14 @@ namespace AsposePivotDemo
             pt.AddFieldToArea(PivotFieldType.Row, 1);
             pt.AddFieldToArea(PivotFieldType.Data, 2);
 
+            pt.PivotTableStyleType = PivotTableStyleType.PivotTableStyleDark1;
 
+            //workbook.Worksheets[0].IsVisible = false;
 
-           workbook.Save("C:/Users/Ankita/Documents/bc69.xlsx");
+            Style st = workbook.CreateStyle();
+            pt.FormatAll(st);
+
+            workbook.Save("C:/Users/Ankita/Documents/bc69.xlsx");
 
 
 
