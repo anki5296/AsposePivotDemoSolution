@@ -31,12 +31,28 @@ namespace AsposePivotDemo
             //Cells cells = sheet0.Cells;
 
             Cell cell = sheet0.Cells.LastCell;
+            Cell cell_first = sheet0.Cells.FirstCell;
 
-            int col=cell.Column + 1;
-            int row=cell.Row + 1;
+            #region Lastcell calculation
 
-         
-            int dividend = col;
+            
+            int col_last = cell.Column + 1;
+            int row_last = cell.Row + 1;
+
+            #endregion
+
+            #region First calculation
+
+
+            int col_first = cell_first.Column + 1;
+            int row_first = cell_first.Row + 1;
+
+            #endregion
+
+
+
+            #region Calculate column character
+            int dividend = col_last;
             string columnName = String.Empty;
 
             while (dividend > 0)
@@ -45,11 +61,16 @@ namespace AsposePivotDemo
                 columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
                 dividend = (dividend - modulo) / 26;
             }
-            string sheetname = sheet0.Name;
-            string datasource = sheetname+"!A1:"+ columnName + row.ToString();
-            
 
-        int iPivotIndex = worksheet.PivotTables.Add(datasource,"A1","PivotTable");
+            #endregion
+
+            string sheetname = sheet0.Name;
+            string datasource = sheetname + "!A3:" + columnName + row_last.ToString();
+            //string datasource = sheetname + "!A" + row_first.ToString() + ":" + columnName + row_last.ToString();
+
+
+
+            int iPivotIndex = worksheet.PivotTables.Add(datasource, "A1", "PivotTable");
             PivotTable pt = worksheet.PivotTables[iPivotIndex];
             pt.RowGrand = true;
             pt.ColumnGrand = true;
