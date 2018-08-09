@@ -22,7 +22,7 @@ namespace AsposePivotDemo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Workbook workbook = new Workbook("C:/Users/Ankita/Documents/bc69.xlsx");
+            Workbook workbook = new Workbook("C:/Users/Ankita/Downloads/global.xlsx");
             workbook.Worksheets.RemoveAt("Pivot");
             Worksheet worksheet = workbook.Worksheets.Add("Pivot");
 
@@ -75,18 +75,19 @@ namespace AsposePivotDemo
             pt.RowGrand = true;
             pt.ColumnGrand = true;
             pt.IsAutoFormat = true;
-            pt.AddFieldToArea(PivotFieldType.Row, 0);
+            pt.AddFieldToArea(PivotFieldType.Column, 0);
             pt.AddFieldToArea(PivotFieldType.Row, 1);
             pt.AddFieldToArea(PivotFieldType.Data, 2);
-
+            pt.AddFieldToArea(PivotFieldType.Data, 3);
             pt.PivotTableStyleType = PivotTableStyleType.PivotTableStyleDark1;
-
+            pt.DataFields[0].NumberFormat = @"[>999999999]$#\,###\,###\,##0.00;[>=1000000]$###\,###\,##0.00;$#,###";
+            pt.DataFields[1].NumberFormat = @"[>999999999]$#\,###\,###\,##0.00;[>=1000000]$###\,###\,##0.00;$#,###"; ;
             //workbook.Worksheets[0].IsVisible = false;
 
             Style st = workbook.CreateStyle();
             pt.FormatAll(st);
 
-            workbook.Save("C:/Users/Ankita/Documents/bc69.xlsx");
+            workbook.Save("C:/Users/Ankita/Downloads/global.xlsx");
 
 
 
